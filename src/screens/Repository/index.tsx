@@ -38,24 +38,27 @@ export function Repository() {
 
   function handleIssueNavigation(issueUrl: string) {
     // TODO - use Linking to open issueUrl in a browser
+    Linking.openURL(issueUrl)
   }
 
   return (
     <Background>
       <Container>
         <RepoInfo>
-          {/* <OwnerAvatar source={{ uri:  }} /> */}
+          <OwnerAvatar source={{ uri: repository.owner.avatar_url }} />
 
           <TextGroup>
             <TitleAnimation>
               {
-                // TODO - full name of the repository
+                repository.full_name
               }
             </TitleAnimation>
 
-            <Description numberOfLines={2}>{
-              //TODO - repository description
-            }</Description>
+            <Description numberOfLines={2}>
+              {
+                repository.description
+              }
+            </Description>
           </TextGroup>
         </RepoInfo>
 
@@ -63,13 +66,15 @@ export function Repository() {
           <Stars>
             <StarsCounter>{
               // TODO - repository stargazers count
+              repository.stargazers_count
             }</StarsCounter>
             <StarsText>Stars</StarsText>
           </Stars>
 
           <Forks>
             <ForksCounter>{
-              // TODO - repository forks count
+              // TODO - repository forks coun
+              repository.forks_count
             }</ForksCounter>
             <ForksText>Forks</ForksText>
           </Forks>
@@ -77,6 +82,7 @@ export function Repository() {
           <OpenIssues>
             <OpenIssuesCounter>{
               // TODO - repository issues count
+              repository.open_issues_count
             }</OpenIssuesCounter>
             <OpenIssuesText>Issues{'\n'}Abertas</OpenIssuesText>
           </OpenIssues>
@@ -88,12 +94,12 @@ export function Repository() {
           showsVerticalScrollIndicator={false}
           renderItem={({ item: issue }) => (
             <Card
+              onPress={() => handleIssueNavigation(issue.html_url)}
               data={{
                 id: issue.id,
                 title: issue.title,
                 subTitle: issue.user.login,
               }}
-            // TODO - onPress prop calling 
             />
           )}
         />
